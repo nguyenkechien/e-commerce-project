@@ -10,6 +10,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'prettier/@typescript-eslint',
+    'airbnb-typescript',
+    'airbnb/hooks',
   ],
   root: true,
   env: {
@@ -21,5 +23,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
+  validate: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
 };
