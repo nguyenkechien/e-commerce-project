@@ -11,9 +11,17 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
     "paths": {
       "@src/*": ["./src/*"],
-      "@helpers/*": ["./src/helpers/*"]
+      "@helpers/*": ["./src/helpers/*"],
+      "@views/*": ["./src/views/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "ssr.config.js", "dist", ".ssr"]
 }
