@@ -20,7 +20,10 @@
     "paths": {
       "@src/*": ["./src/*"],
       "@helpers/*": ["./src/helpers/*"],
-      "@views/*": ["./src/views/*"]
+      "@core/*": ["./src/core/*"],
+      "@views/*": ["./src/views/*"],
+      "@models/*": ["./src/models/*"],
+      "@controllers/*": ["./src/controllers/*"]
     }
   },
   "exclude": ["node_modules", "ssr.config.js", "dist", ".ssr"]

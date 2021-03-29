@@ -8,6 +8,7 @@ import {
 import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './middleware/logger';
 import { configuration } from '@helpers/configuration';
+import { HelperService } from './services/helper.services';
 @Global()
 @Module({
   imports: [
@@ -18,6 +19,8 @@ import { configuration } from '@helpers/configuration';
       expandVariables: true,
     }),
   ],
+  providers: [HelperService],
+  exports: [HelperService]
 })
 export class CoresModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

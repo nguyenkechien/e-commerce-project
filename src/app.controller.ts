@@ -2,7 +2,7 @@ import { Controller, Get, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 
 interface GetHelloType {
-  message: string
+  message: string;
 }
 
 @Controller()
