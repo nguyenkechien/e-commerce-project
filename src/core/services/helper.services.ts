@@ -1,5 +1,7 @@
 import { ConfigService } from '@nestjs/config';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class HelperService {
   private crypt: any;
 
@@ -22,7 +24,7 @@ export class HelperService {
     const mogoUri: string = `${db.driver}://${userConfigConnect}${db.host}:${db.port}/${db.name}`;
     return mogoUri + `${db.auth ? `?authSource=${db.auth}` : ''}`;
   }
-  getConfig(configKey: string): any {
+  private getConfig(configKey: string): any {
     return this.configService.get(configKey);
   }
 }
