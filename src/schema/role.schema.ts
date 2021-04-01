@@ -5,7 +5,7 @@ export type RoleDocument = Role & Document;
 @Schema({
   timestamps: true,
 })
-export class Role implements TimestampInterface {
+export class Role extends Document implements TimestampInterface {
   @Prop({
     required: true,
     trim: true,

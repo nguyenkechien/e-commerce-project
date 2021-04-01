@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { optionalRequire } from '@nestjs/core/helpers/optional-require';
 import { MongooseModule } from '@nestjs/mongoose';
 import { HelperService } from '@core/services/helper.services';
 import { Role, RoleSchema } from './role.schema';
@@ -23,6 +24,7 @@ const modeSchemas = [
           useCreateIndex: true,
           useFindAndModify: false,
           connectionFactory: (connection: Record<any, any>): any => {
+            connection.plugin(optionalRequire('mongoose-paginate-v2'));
             return connection;
           },
         };

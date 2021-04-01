@@ -1,8 +1,13 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
+import {
+  ConditionsQuery,
+  ResJsonParam,
+  ResJsonReturn,
+} from './helper.interface';
 
 @Injectable()
-export class HelperService {
+class HelperService {
   private crypt: any;
 
   constructor(private configService: ConfigService) {}
@@ -27,4 +32,45 @@ export class HelperService {
   private getConfig(configKey: string): any {
     return this.configService.get(configKey);
   }
+
+  resJson({ successMsg, payload, errorMsg }: ResJsonParam): ResJsonReturn {
+    const res: ResJsonReturn = {
+      success: true,
+      result: {
+        message: successMsg,
+        payload,
+      },
+      error: null,
+    };
+    if (!payload) {
+      res.success = false;
+      res.result = null;
+      res.error = {
+        code: 1,
+        message: errorMsg,
+      };
+    }
+    return res;
+  }
+
+  getQueryPaginate(query: Record<string, any>) {
+    const { select, page, limit, orderBy, order, name } = query;
+    const filterQuery: ConditionsQuery = {};
+    if (name) {
+      filterQuery.name = { $regex: new RegExp(name) };
+    }
+    const optionQuery = {
+      select,
+      page: page || 1,
+      limit: limit || 10,
+      sort: {
+        [orderBy]: order,
+      },
+    };
+    return {
+      filterQuery,
+      optionQuery,
+    };
+  }
 }
+export { ConditionsQuery, ResJsonReturn, ResJsonParam, HelperService };

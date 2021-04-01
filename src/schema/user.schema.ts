@@ -41,7 +41,7 @@ export class User implements TimestampInterface {
     type: SchemaTypes.ObjectId,
     ref: Role.name,
   })
-  role!: unknown;
+  role!: Role;
 
   @Prop()
   createdAt!: Date;

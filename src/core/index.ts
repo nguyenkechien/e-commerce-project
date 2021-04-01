@@ -9,6 +9,8 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './middleware/logger';
 import { configuration } from '@helpers/configuration';
 import { HelperService } from './services/helper.services';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionFilter } from './filters/exception.filter';
 @Global()
 @Module({
   imports: [
@@ -19,8 +21,14 @@ import { HelperService } from './services/helper.services';
       expandVariables: true,
     }),
   ],
-  providers: [HelperService],
-  exports: [HelperService]
+  providers: [
+    HelperService,
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionFilter,
+    },
+  ],
+  exports: [HelperService],
 })
 export class CoresModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
