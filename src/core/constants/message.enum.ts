@@ -22,4 +22,6 @@ export enum MessageEnum {
   DELETE_FAILED = 'Delete failed',
   DATA_NOT_FOUND = 'Data not found',
   UNKNOWN_ERROR = 'Unknown Error',
+
+  SERVER_ERROR = 'Internal server error',
 }

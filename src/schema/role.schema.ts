@@ -10,6 +10,7 @@ export class Role extends Document implements TimestampInterface {
     required: true,
     trim: true,
     type: String,
+    unique: true,
   })
   name!: string;
 

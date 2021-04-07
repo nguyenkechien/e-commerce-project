@@ -1,5 +1,7 @@
 import { ConfigService } from '@nestjs/config';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { MessageEnum } from '../constants/message.enum';
+import { PaginateResult } from 'mongoose';
 import {
   ConditionsQuery,
   ResJsonParam,
@@ -59,10 +61,14 @@ class HelperService {
     if (name) {
       filterQuery.name = { $regex: new RegExp(name) };
     }
+    let selectArr = ['-__v'];
+    if (select) {
+      selectArr = [...selectArr, ...select.split(',')];
+    }
     const optionQuery = {
-      select,
+      select: selectArr,
       page: page || 1,
-      limit: limit || 10,
+      limit: limit || 5,
       sort: {
         [orderBy]: order,
       },
@@ -71,6 +77,36 @@ class HelperService {
       filterQuery,
       optionQuery,
     };
+  }
+
+  throwException(
+    message?: string,
+    statusCode?: number,
+    data?: Record<any, any>,
+  ): HttpException {
+    throw new HttpException(
+      {
+        code: statusCode || HttpStatus.NOT_FOUND,
+        message: message || MessageEnum.UNKNOWN_ERROR,
+        data: data || null,
+      },
+      statusCode || HttpStatus.NOT_FOUND,
+    );
+  }
+
+  formatPaginateResult(data: Record<any, any>) {
+    if (data?.docs) {
+      const paginator = data as PaginateResult<any>;
+      data = {
+        items: paginator.docs,
+        total: paginator.totalDocs,
+        pages: paginator.totalPages,
+        hasNextPage: paginator.hasNextPage,
+        hasPrevPage: paginator.hasPrevPage,
+        curentPage: paginator.page,
+      };
+    }
+    return data;
   }
 }
 export { ConditionsQuery, ResJsonReturn, ResJsonParam, HelperService };

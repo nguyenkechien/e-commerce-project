@@ -3,9 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoresModule } from '@core/index';
 import { SchemaModule } from './schema/schema.module';
-import { RolesModule } from './roles/roles.module';
+import { ApiModule } from '@api/api.module';
 @Module({
-  imports: [CoresModule, SchemaModule, RolesModule],
+  imports: [CoresModule, SchemaModule, ApiModule],
   controllers: [AppController],
   providers: [AppService],
 })

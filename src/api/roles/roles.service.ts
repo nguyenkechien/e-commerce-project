@@ -9,12 +9,12 @@ import { HelperService } from '@core/services/helper.services';
 @Injectable()
 export class RolesService {
   constructor(
-    @InjectModel(Role.name) private readonly roleModel: PaginateModel<Role>,
+    @InjectModel(Role.name) private readonly model: PaginateModel<Role>,
     private helperService: HelperService,
   ) {}
 
   async create(createRoleDto: CreateRoleDto): Promise<Role> {
-    const createRole = new this.roleModel(createRoleDto);
+    const createRole = new this.model(createRoleDto);
     return createRole.save();
   }
 
@@ -22,23 +22,23 @@ export class RolesService {
     const { optionQuery, filterQuery } = this.helperService.getQueryPaginate(
       query,
     );
-    return await this.roleModel.paginate(filterQuery, optionQuery);
+    return await this.model.paginate(filterQuery, optionQuery);
   }
 
   async findOne(id: string): Promise<Role | null> {
-    return await this.roleModel
+    return await this.model
       .findOne({ _id: id })
       .select('-__v')
       .exec();
   }
 
   update(id: string, updateRoleDto: UpdateRoleDto) {
-    return this.roleModel.findOneAndUpdate({ _id: id }, updateRoleDto, {
+    return this.model.findOneAndUpdate({ _id: id }, updateRoleDto, {
       new: false,
     });
   }
 
   async remove(id: string): Promise<any> {
-    return this.roleModel.findOneAndDelete({ _id: id });
+    return this.model.findOneAndDelete({ _id: id });
   }
 }

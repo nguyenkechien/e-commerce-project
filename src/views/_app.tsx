@@ -1,7 +1,14 @@
 import React from 'react';
+import { PageProvider } from './core/PageContext';
 
 type Props = {
-  children: React.ElementType,
+  children: React.ElementType<any> | {
+    Page: React.ElementType,
+    StoreReducer: {
+      reducer: (state: any, action: any) => any,
+      initialState: any,
+    }
+  },
   [elemName: string]: any
 }
 
@@ -12,11 +19,17 @@ const App = (props: Props): JSX.Element => {
   const { children, ...rest } = props;
 
   // we can wrap this PageComponent for persisting layout between page changes
-  console.log(props)
-  const PageComponent = children;
-
+  console.log(`props`, props)
+  let PageComponent: any = children;
+  let Store = { initialState: {}, reducer: (state: any, action: any) => { } };
+  if (typeof children === 'object') {
+    PageComponent = children.Page;
+    Store = { ...children.StoreReducer }
+  }
   return (<>
-    <PageComponent {...rest} />
+    <PageProvider initialState={Store.initialState} reducer={Store.reducer} >
+      <PageComponent {...rest} />
+    </PageProvider>
   </>);
 };
 
