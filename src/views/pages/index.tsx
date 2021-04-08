@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Head } from '@react-ssr/nestjs-express';
 import { Pagination } from '../components/pagination';
 import { getListPages } from '../../helpers';
-import { usePageContext } from '../core/PageContext';
 
 interface IndexProps {
   message: string;
@@ -22,8 +21,6 @@ interface IndexProps {
 }
 
 const Index = ({ payload, message }: IndexProps) => {
-  const [state, dispatch] = usePageContext();
-  console.log(state);
   const onChange = (pageNum: number) => {
     console.log(`pageNum`, pageNum);
   }

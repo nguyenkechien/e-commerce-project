@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   id: 'default',
-  distDir: '.ssr',
+  distDir: 'dist/.ssr',
   viewsDir: './src/views',
   staticViews: [],
   webpack: (

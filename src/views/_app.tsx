@@ -1,5 +1,6 @@
 import React from 'react';
-import { PageProvider } from './core/PageContext';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 type Props = {
   children: React.ElementType<any>,
@@ -15,9 +16,9 @@ const App = (props: Props): JSX.Element => {
   let PageComponent: any = children;
 
   return (<>
-    <PageProvider>
+    <Provider store={store}>
       <PageComponent {...rest} />
-    </PageProvider>
+    </Provider>
   </>);
 };
 
