@@ -23,6 +23,7 @@ interface IndexProps {
 
 const Index = ({ payload, message }: IndexProps) => {
   const [state, dispatch] = usePageContext();
+  console.log(state);
   const onChange = (pageNum: number) => {
     console.log(`pageNum`, pageNum);
   }
@@ -47,18 +48,4 @@ const Index = ({ payload, message }: IndexProps) => {
   );
 };
 
-const reducer = (state: any, action: any) => {
-
-}
-
-const initialState = {
-
-}
-
-export default {
-  Page: Index,
-  StoreReducer: {
-    reducer,
-    initialState
-  }
-};
+export default Index
