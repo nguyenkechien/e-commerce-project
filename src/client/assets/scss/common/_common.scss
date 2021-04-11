@@ -1,0 +1,10 @@
+.spin {
+  display: inline-block;
+  animation: loadingCircle 1s linear infinite;
+}
+
+@keyframes loadingCircle {
+  100% {
+    transform: rotate(1turn);
+  }
+}

@@ -3,10 +3,6 @@ import { AppService } from './app.service';
 import { RolesService } from './api/roles/roles.service';
 import { HelperService } from '@core/services/helper.services';
 
-interface GetHelloType {
-  message: string;
-}
-
 @Controller()
 export class AppController {
   constructor(
@@ -27,7 +23,7 @@ export class AppController {
   }
   @Get('/login')
   @Render('pages/login.tsx')
-  getHello(): GetHelloType {
+  async login() {
     return { message: this.appService.getHello() };
   }
 }

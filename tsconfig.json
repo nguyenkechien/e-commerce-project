@@ -21,7 +21,6 @@
       "@src/*": ["./src/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@core/*": ["./src/core/*"],
-      "@views/*": ["./src/views/*"],
       "@models/*": ["./src/models/*"],
       "@controllers/*": ["./src/controllers/*"],
       "@api/*": ["./src/api/*"],

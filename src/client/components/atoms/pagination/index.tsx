@@ -17,17 +17,23 @@ export const Pagination = ({ pages, onChange }: PaginationProps) => {
     if (typeof onChange === 'function') onChange(pageNumber);
   }
 
-  return <ul className="pagination">
-    {
-      pages.map(({ pageNumber }) => (
-        <li
-          key={pageNumber}
-          className={`${activePage === pageNumber ? 'active' : ''}`}
-          onClick={() => change(pageNumber)}
-        >
-          {pageNumber}
-        </li>
-      ))
-    }
-  </ul>
+  return (
+    <div className="pagination">
+      <ul className="pagination-list">
+        {
+          pages.map(({ pageNumber }) => (
+            <li
+              key={pageNumber}
+              className={`pagination-items ${activePage === pageNumber ? 'active' : ''}`}
+              onClick={() => change(pageNumber)}
+            >
+              <span className="pagination-item">
+                {pageNumber}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  )
 }
