@@ -6,7 +6,7 @@ export type UserDocument = User & Document;
 @Schema({
   timestamps: true,
 })
-export class User implements TimestampInterface {
+export class User extends Document implements TimestampInterface {
   @Prop({
     required: true,
     trim: true,
@@ -17,6 +17,7 @@ export class User implements TimestampInterface {
   @Prop({
     required: true,
     trim: true,
+    unique: true,
   })
   email!: string;
 

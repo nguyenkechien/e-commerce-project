@@ -1,26 +1,49 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from '../../schema/user.schema';
+import { HelperService } from '@src/core/services/helper.services';
+import { PaginateModel } from 'mongoose';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(
+    @InjectModel(User.name) private readonly model: PaginateModel<User>,
+    private helperService: HelperService,
+  ) {}
+
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const createUser = new this.model(createUserDto);
+    return await createUser.save();
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll(query?: Record<string, any>) {
+    const { optionQuery, filterQuery } = this.helperService.getQueryPaginate(
+      query || {},
+    );
+    return await this.model.paginate(filterQuery, optionQuery);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(email: string): Promise<User> {
+    const user = await this.model
+      .findOne({ email })
+      .select('-__v')
+      .exec();
+    if (user) return user;
+    throw new HttpException(
+      'User with this email does not exist',
+      HttpStatus.NOT_FOUND,
+    );
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(email: string, updateUserDto: UpdateUserDto) {
+    return await this.model.findOneAndUpdate({ email }, updateUserDto, {
+      new: false,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(email: string): Promise<any> {
+    return await this.model.findOneAndDelete({ email });
   }
 }

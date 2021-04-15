@@ -15,7 +15,7 @@ export class RolesService {
 
   async create(createRoleDto: CreateRoleDto): Promise<Role> {
     const createRole = new this.model(createRoleDto);
-    return createRole.save();
+    return await createRole.save();
   }
 
   async findAll(query: Record<string, any>): Promise<PaginateResult<Role>> {
@@ -32,13 +32,13 @@ export class RolesService {
       .exec();
   }
 
-  update(id: string, updateRoleDto: UpdateRoleDto) {
-    return this.model.findOneAndUpdate({ _id: id }, updateRoleDto, {
+  async update(id: string, updateRoleDto: UpdateRoleDto) {
+    return await this.model.findOneAndUpdate({ _id: id }, updateRoleDto, {
       new: false,
     });
   }
 
   async remove(id: string): Promise<any> {
-    return this.model.findOneAndDelete({ _id: id });
+    return await this.model.findOneAndDelete({ _id: id });
   }
 }
