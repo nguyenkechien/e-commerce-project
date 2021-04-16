@@ -5,6 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from '../../schema/user.schema';
 import { HelperService } from '@src/core/services/helper.services';
 import { PaginateModel } from 'mongoose';
+import { UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -13,9 +14,11 @@ export class UsersService {
     private helperService: HelperService,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<any> {
     const createUser = new this.model(createUserDto);
-    return await createUser.save();
+    const newUser = (await createUser.save()).populate('role').execPopulate();
+    // const { password, ...payload } = newUser.toJSON();
+    return newUser;
   }
 
   async findAll(query?: Record<string, any>) {

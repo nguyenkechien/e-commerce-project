@@ -8,5 +8,5 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   active!: boolean;
   token!: string;
   @Prop({ type: SchemaTypes.ObjectId, ref: Role.name })
-  role!: Role;
+  role?: Role | undefined;
 }

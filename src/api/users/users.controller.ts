@@ -14,7 +14,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { TransformInterceptor } from '@src/core/interceptors/transform.interceptor';
 import { RolesService } from '../roles/roles.service';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
+
 @Controller('api/users')
 @UseInterceptors(TransformInterceptor)
 export class UsersController {
@@ -24,17 +25,20 @@ export class UsersController {
   ) {}
 
   @Post()
-  async register(@Body() createUserDto: CreateUserDto) {
+  async create(@Body() createUserDto: CreateUserDto) {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    return this.usersService.create({
+    const payload = await this.usersService.create({
       ...createUserDto,
       password: hashedPassword,
     });
+    return {
+      data: payload,
+    };
   }
 
   @Get()
   async findAll(@Query() query: Record<string, any>) {
-    const payload = await this.rolesService.findAll(query);
+    const payload = await this.usersService.findAll(query);
     return {
       data: payload,
     };

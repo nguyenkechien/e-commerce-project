@@ -61,7 +61,7 @@ class HelperService {
     if (name) {
       filterQuery.name = { $regex: new RegExp(name) };
     }
-    let selectArr = ['-__v'];
+    let selectArr = ['-__v', '-password'];
     if (select) {
       selectArr = [...selectArr, ...select.split(',')];
     }

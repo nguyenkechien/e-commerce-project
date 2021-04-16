@@ -7,5 +7,6 @@ import { RolesModule } from '@api/roles/roles.module';
   imports: [SchemaModule, RolesModule],
   controllers: [UsersController],
   providers: [UsersService],
+  exports: [UsersService],
 })
 export class UsersModule {}
