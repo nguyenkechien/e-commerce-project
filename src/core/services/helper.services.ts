@@ -7,6 +7,7 @@ import {
   ResJsonParam,
   ResJsonReturn,
 } from './helper.interface';
+import { isArray } from '@src/helpers';
 
 @Injectable()
 class HelperService {
@@ -94,7 +95,7 @@ class HelperService {
     );
   }
 
-  formatPaginateResult(data: Record<any, any>) {
+  formatResult(data: Record<any, any>) {
     if (data?.docs) {
       const paginator = data as PaginateResult<any>;
       data = {
@@ -106,6 +107,8 @@ class HelperService {
         curentPage: paginator.page,
       };
     }
+    if (isArray(data)) data = { items: data, total: data.length };
+    if (data.toJSON) data = data.toJSON();
     return data;
   }
 }

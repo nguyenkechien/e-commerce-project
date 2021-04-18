@@ -12,7 +12,7 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   await register(app);
   app.setViewEngine('hbs');
-  const port: number = config.get('node.port') || 3000;
+  const port: number = config.get('node.port', 3000);
   await app.listen(port);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }

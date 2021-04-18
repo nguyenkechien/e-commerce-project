@@ -18,7 +18,7 @@ export class AppController {
 
     return {
       message: this.appService.getHello(),
-      payload: this.helperService.formatPaginateResult(payload),
+      payload: this.helperService.formatResult(payload),
     };
   }
   @Get('/login')

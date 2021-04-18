@@ -16,7 +16,9 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<any> {
     const createUser = new this.model(createUserDto);
-    const newUser = (await createUser.save()).populate('role').execPopulate();
+    const newUser = (await createUser.save())
+      .populate('role', '-__v')
+      .execPopulate();
     // const { password, ...payload } = newUser.toJSON();
     return newUser;
   }
@@ -32,6 +34,7 @@ export class UsersService {
     const user = await this.model
       .findOne({ email })
       .select('-__v')
+      .populate('role', '-__v')
       .exec();
     if (user) return user;
     throw new HttpException(

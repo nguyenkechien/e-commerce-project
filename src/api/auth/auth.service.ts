@@ -31,8 +31,8 @@ export class AuthService {
     try {
       const user = await this.usersService.findOne(email);
       await this.verifyPassword(pass, user.password);
-      const { password, token, __v, ...result } = user;
-      return result;
+      const { name, email: userEmail, _id } = user.toJSON();
+      return { name, email: userEmail, _id };
     } catch (error) {
       throw new HttpException(
         'Wrong credentials provided',
@@ -43,6 +43,6 @@ export class AuthService {
 
   public async login(user: User | any) {
     const payload = { email: user.email, sub: user._id };
-    return { accessToken: this.jwtService.sign(payload) };
+    return this.jwtService.sign(payload);
   }
 }

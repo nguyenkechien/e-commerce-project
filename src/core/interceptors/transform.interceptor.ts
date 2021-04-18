@@ -22,12 +22,17 @@ export class TransformInterceptor implements NestInterceptor<ResponseResult> {
     const response = context.switchToHttp().getResponse<Response>();
     return next.handle().pipe(
       map((result: CoreResponseResult) => {
-        result.data = this.helperService.formatPaginateResult(result.data);
+        result.data = this.helperService.formatResult(result.data);
+        let payload: any = result.data;
+        if (typeof result.data === 'object') {
+          const { password, __v, ...data } = result.data;
+          payload = data;
+        }
         return {
           success: true,
           result: {
             message: result.message || MessageEnum.SUCCESS,
-            payload: result.data,
+            payload,
           },
           error: null,
         };

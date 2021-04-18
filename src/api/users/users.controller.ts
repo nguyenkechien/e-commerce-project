@@ -44,9 +44,12 @@ export class UsersController {
     };
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+  @Get(':email')
+  async findOne(@Param('email') email: string) {
+    const payload = await this.usersService.findOne(email);
+    return {
+      data: payload,
+    };
   }
 
   @Put(':id')
