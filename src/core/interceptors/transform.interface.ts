@@ -15,4 +15,5 @@ export interface CoreResponseResult {
   statusCode?: number;
   data?: any;
   message?: string;
+  setToken?: boolean;
 }

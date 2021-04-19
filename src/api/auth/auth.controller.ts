@@ -25,7 +25,7 @@ export class AuthController {
   @Post('login')
   async login(@Request() req: any): Promise<CoreResponseResult> {
     const payload = await this.authService.login(req.user);
-    return { data: payload };
+    return { data: payload, setToken: true };
   }
   @UseGuards(JwtAuthGuard)
   @Get('me')

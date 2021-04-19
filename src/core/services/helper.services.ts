@@ -111,5 +111,7 @@ class HelperService {
     if (data.toJSON) data = data.toJSON();
     return data;
   }
+
+  // TODO: function heler get seconds
 }
 export { ConditionsQuery, ResJsonReturn, ResJsonParam, HelperService };
