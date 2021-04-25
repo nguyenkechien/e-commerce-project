@@ -13,10 +13,6 @@ import { ConfigService } from '@nestjs/config';
   imports: [
     UsersModule,
     PassportModule,
-    // JwtModule.register({
-    //   secret: JWTConstants.secret,
-    //   signOptions: { expiresIn: '60s' },
-    // }),
     JwtModule.registerAsync({
       imports: [ConfigService],
       useFactory: (configService: ConfigService) => ({

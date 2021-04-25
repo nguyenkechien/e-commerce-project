@@ -7,10 +7,14 @@ import { Request } from 'express';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly configService: ConfigService) {
     super({
-      // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       jwtFromRequest: ExtractJwt.fromExtractors([
-        (request: Request) =>
-          request?.cookies?.[configService.get('cookie.tokenKey')],
+        (request: Request) => {
+          const cookiesToken: string =
+            request?.cookies?.[configService.get('cookie.tokenKey')];
+          const headerToken = ExtractJwt.fromAuthHeaderAsBearerToken();
+          const token = cookiesToken || headerToken(request);
+          return token;
+        },
       ]),
       ignoreExpiration: false,
       secretOrKey: configService.get('jwt.secret'),

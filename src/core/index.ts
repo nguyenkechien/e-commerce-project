@@ -10,7 +10,7 @@ import { LoggerMiddleware } from './middleware/logger';
 import { configuration } from '@helpers/configuration';
 import { HelperService } from './services/helper.services';
 import { APP_FILTER } from '@nestjs/core';
-import { AllExceptionFilter } from './filters/exception.filter';
+import { ViewExceptionFilter } from './filters/exception.filter';
 @Global()
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { AllExceptionFilter } from './filters/exception.filter';
     HelperService,
     {
       provide: APP_FILTER,
-      useClass: AllExceptionFilter,
+      useClass: ViewExceptionFilter,
     },
   ],
   exports: [HelperService],

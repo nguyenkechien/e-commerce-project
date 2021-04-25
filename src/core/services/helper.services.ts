@@ -7,7 +7,10 @@ import {
   ResJsonParam,
   ResJsonReturn,
 } from './helper.interface';
-import { isArray } from '@src/helpers';
+import { isArray, isInteger } from '@src/helpers';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+dayjs.extend(duration);
 
 @Injectable()
 class HelperService {
@@ -112,6 +115,11 @@ class HelperService {
     return data;
   }
 
-  // TODO: function heler get seconds
+  getSeconds(date: string = '60s') {
+    if (isInteger(date)) return +date;
+    const dateString = date.slice(0, date.length - 1);
+    const dateExist: any = date.slice(date.length - 1);
+    return dayjs.duration(+dateString, dateExist).asSeconds();
+  }
 }
 export { ConditionsQuery, ResJsonReturn, ResJsonParam, HelperService };

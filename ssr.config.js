@@ -12,7 +12,7 @@ module.exports = {
     config.resolve = {
       ...config.resolve,
       alias: {
-        '@src': path.resolve(__dirname, './src'),
+        '@src': path.resolve(__dirname, 'dist', 'src'),
       },
     };
     return config;

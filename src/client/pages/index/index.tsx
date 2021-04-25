@@ -37,13 +37,13 @@ const Index = ({ payload, message }: IndexProps) => {
     dispatch(incrementAsync(1))
   }
 
-  useEffect(() => {
-    const fetchRoles = async () => {
-      const res = await rolesService.get();
-      console.log(res);
-    };
-    fetchRoles()
-  }, [])
+  // useEffect(() => {
+  //   const fetchRoles = async () => {
+  //     const res = await rolesService.get();
+  //     console.log(res);
+  //   };
+  //   fetchRoles()
+  // }, [])
 
   return (
     <React.Fragment>
@@ -62,15 +62,15 @@ const Index = ({ payload, message }: IndexProps) => {
       >
         increment
       </Button>
-      {payload.items.map((item) => {
+      {/* {payload.items.map((item) => {
         return (
           <div key={item._id}>
             <span>Name: </span>
             <span>{item.name}</span>
           </div>
         )
-      })}
-      <Pagination pages={getListPages(payload.pages, payload.curentPage)} onChange={onChange} />
+      })} */}
+      {/* <Pagination pages={getListPages(payload.pages, payload.curentPage)} onChange={onChange} /> */}
     </React.Fragment>
   );
 };

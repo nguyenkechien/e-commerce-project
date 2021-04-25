@@ -35,11 +35,12 @@ export class TransformInterceptor implements NestInterceptor<ResponseResult> {
         const tokenKey = this.configService.get('cookie.tokenKey');
         const expiresIn: string =
           this.configService.get('jwt.expiresIn') || '60s';
+        const expiresInSeconds = this.helperService.getSeconds(expiresIn);
         if (result.setToken) {
           response.cookie(tokenKey, payload, {
             secure: !this.configService.get('node.debug'),
             httpOnly: true,
-            expires: new Date(Date.now() + 60 * 1000),
+            expires: new Date(Date.now() + expiresInSeconds * 1000),
           });
           response.setHeader(tokenKey, payload);
         }
@@ -48,6 +49,7 @@ export class TransformInterceptor implements NestInterceptor<ResponseResult> {
           result: {
             message: result.message || MessageEnum.SUCCESS,
             payload,
+            expiresIn: expiresInSeconds,
           },
           error: null,
         };

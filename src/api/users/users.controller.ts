@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -15,8 +16,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { TransformInterceptor } from '@src/core/interceptors/transform.interceptor';
 import { RolesService } from '../roles/roles.service';
 import * as bcrypt from 'bcrypt';
+import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 
 @Controller('api/users')
+@UseGuards(JwtAuthGuard)
 @UseInterceptors(TransformInterceptor)
 export class UsersController {
   constructor(

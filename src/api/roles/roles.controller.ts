@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
@@ -16,8 +17,10 @@ import { MessageEnum, MessageTypeEnum } from '@core/constants/message.enum';
 import { HelperService } from '@core/services/helper.services';
 import { TransformInterceptor } from '@src/core/interceptors/transform.interceptor';
 import { CoreResponseResult } from '@src/core/interceptors/transform.interface';
+import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 
 @Controller('api/roles')
+@UseGuards(JwtAuthGuard)
 @UseInterceptors(TransformInterceptor)
 export class RolesController {
   constructor(
