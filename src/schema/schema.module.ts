@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { optionalRequire } from '@nestjs/core/helpers/optional-require';
 import { MongooseModule } from '@nestjs/mongoose';
-import { HelperService } from '@core/services/helper.services';
+import { HelperService } from '@utils/services/helper.services';
 import { Role, RoleSchema } from './role.schema';
 import { User, UserSchema } from './user.schema';
 

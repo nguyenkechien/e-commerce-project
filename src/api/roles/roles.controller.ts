@@ -13,10 +13,10 @@ import {
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
-import { MessageEnum, MessageTypeEnum } from '@core/constants/message.enum';
-import { HelperService } from '@core/services/helper.services';
-import { TransformInterceptor } from '@src/core/interceptors/transform.interceptor';
-import { CoreResponseResult } from '@src/core/interceptors/transform.interface';
+import { MessageEnum, MessageTypeEnum } from '@utils/constants/message.enum';
+import { HelperService } from '@utils/services/helper.services';
+import { TransformInterceptor } from '@utils/interceptors/transform.interceptor';
+import { CoreResponseResult } from '@utils/interceptors/transform.interface';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 
 @Controller('api/roles')
@@ -73,12 +73,11 @@ export class RolesController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string): Promise<CoreResponseResult> {
     const payload = await this.service.remove(id);
-    return this.helperService.resJson({
-      successMsg: MessageEnum.DELETE_SUCCESS,
-      errorMsg: MessageEnum.DELETE_FAILED,
-      payload,
-    });
+    return {
+      data: payload,
+      message: MessageEnum.DELETE_SUCCESS,
+    };
   }
 }

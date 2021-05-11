@@ -4,8 +4,8 @@ import { Pagination } from '../../components/atoms/pagination';
 import { storeSelector, storeDispatch } from '../../store/hooks';
 import { increment, selectCount, incrementAsync, selectCountStatus } from '../../store/counter/counterSlice';
 import { Button } from '../../components/atoms/button/index';
-import { getListPages } from './../../utils/helper';
-import { rolesService } from './../../services/roles.service';
+import { getListPages } from '../../utils/helper';
+import { rolesService } from '../../services/roles.service';
 
 interface IndexProps {
   message: string;

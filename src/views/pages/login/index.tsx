@@ -1,6 +1,6 @@
-import React, { FormEvent, FormEventHandler, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Head } from '@react-ssr/nestjs-express';
-import { http } from './../../utils/http'
+import { http } from '../../utils/http'
 interface IndexProps {
 
 }

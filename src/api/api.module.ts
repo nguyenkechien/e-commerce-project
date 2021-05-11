@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { RolesModule } from '@api/roles/roles.module';
 import { UsersModule } from '@api/users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { HelperService } from '@src/core/services/helper.services';
+import { HelperService } from '@utils/services/helper.services';
 import { APP_FILTER } from '@nestjs/core';
-import { AllExceptionFilter } from '../core/filters/api-exception.filter';
+import { AllExceptionFilter } from '../utils/filters/api-exception.filter';
 
 @Module({
   imports: [RolesModule, UsersModule, AuthModule],

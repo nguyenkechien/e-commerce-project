@@ -6,8 +6,8 @@ import {
   Get,
   UseInterceptors,
 } from '@nestjs/common';
-import { TransformInterceptor } from '@src/core/interceptors/transform.interceptor';
-import { CoreResponseResult } from '@src/core/interceptors/transform.interface';
+import { TransformInterceptor } from '@utils/interceptors/transform.interceptor';
+import { CoreResponseResult } from '@utils/interceptors/transform.interface';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
 import { LocalAuthGuard } from './guard/local-auth.guard';

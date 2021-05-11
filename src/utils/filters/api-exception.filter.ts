@@ -9,29 +9,12 @@ import {
 } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { MessageEnum } from '../constants/message.enum';
-interface ResJson {
-  code?: number;
-  message?: string;
-}
-const resJson = (error: ResJson | string) => {
-  if (typeof error === 'string') {
-    error = {
-      code: HttpStatus.BAD_REQUEST,
-      message: error,
-    };
-  }
-  return {
-    success: false,
-    result: null,
-    error: {
-      ...error,
-    },
-  };
-};
+import { HelperService } from '@utils/services/helper.services';
+
 @Catch()
 export class AllExceptionFilter<T> extends BaseExceptionFilter
   implements ExceptionFilter {
-  constructor() {
+  constructor(private readonly helperService: HelperService) {
     super();
   }
   catch(exception: any, host: ArgumentsHost): any {
@@ -40,13 +23,9 @@ export class AllExceptionFilter<T> extends BaseExceptionFilter
     const response = ctx.getResponse();
     if (exception instanceof BadRequestException) {
       const statusCode = HttpStatus.BAD_REQUEST;
-
-      return response.status(statusCode).json(
-        resJson({
-          code: statusCode,
-          message: exception['response']['message'],
-        }),
-      );
+      const message = exception['response']['message'];
+      const resError = this.helperService.jsonReturn({ message, statusCode });
+      return response.status(statusCode).json(resError.error);
     }
 
     if (
@@ -56,23 +35,26 @@ export class AllExceptionFilter<T> extends BaseExceptionFilter
     ) {
       const statusCode = HttpStatus.BAD_REQUEST;
       const message = exception['message'];
-      return response
-        .status(statusCode)
-        .json(resJson({ code: statusCode, message }));
+      const resError = this.helperService.jsonReturn({ message, statusCode });
+      return response.status(statusCode).json(resError.error);
     }
 
     if (exception instanceof ForbiddenException) {
       const statusCode = HttpStatus.FORBIDDEN;
       const message = 'Permission denied!';
-      return response
-        .status(statusCode)
-        .json(resJson({ code: statusCode, message }));
+      const resError = this.helperService.jsonReturn({ message, statusCode });
+      return response.status(statusCode).json(resError.error);
     }
 
     if (exception instanceof HttpException) {
       const statusCode = exception.getStatus();
       const error = exception.getResponse();
-      return response.status(statusCode).json(resJson(error));
+      let props = {};
+      if (typeof error === 'string') {
+        props = { message: error };
+      } else props = error;
+      const resError = this.helperService.jsonReturn({ statusCode, ...props });
+      return response.status(statusCode).json(resError.error);
     }
 
     if (
@@ -85,15 +67,13 @@ export class AllExceptionFilter<T> extends BaseExceptionFilter
           exception['errmsg'].indexOf('_1'),
         ) + ' must be unique';
       const statusCode = exception.statusCode || HttpStatus.BAD_REQUEST;
-
-      return response
-        .status(statusCode)
-        .json(resJson({ message, code: statusCode }));
+      const resError = this.helperService.jsonReturn({ message, statusCode });
+      return response.status(statusCode).json(resError.error);
     }
 
     const statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-    return response
-      .status(statusCode)
-      .json(resJson({ message: MessageEnum.SERVER_ERROR, code: statusCode }));
+    const message = MessageEnum.SERVER_ERROR;
+    const resError = this.helperService.jsonReturn({ message, statusCode });
+    return response.status(statusCode).json(resError.error);
   }
 }

@@ -2,20 +2,18 @@ import { ConfigService } from '@nestjs/config';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { MessageEnum } from '../constants/message.enum';
 import { PaginateResult } from 'mongoose';
-import {
-  ConditionsQuery,
-  ResJsonParam,
-  ResJsonReturn,
-} from './helper.interface';
-import { isArray, isInteger } from '@src/helpers';
+import { ConditionsQuery } from './helper.interface';
+import { isArray, isInteger } from '@utils/validations';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import {
+  ResponseResult,
+  CoreResponseResult,
+} from '../interceptors/transform.interface';
 dayjs.extend(duration);
 
 @Injectable()
 class HelperService {
-  private crypt: any;
-
   constructor(private configService: ConfigService) {}
 
   getMongoUri(): string {
@@ -39,24 +37,23 @@ class HelperService {
     return this.configService.get(configKey);
   }
 
-  resJson({ successMsg, payload, errorMsg }: ResJsonParam): ResJsonReturn {
-    const res: ResJsonReturn = {
+  jsonReturn({
+    message,
+    data: payload,
+    statusCode,
+    ...props
+  }: CoreResponseResult) {
+    const success: ResponseResult = {
       success: true,
-      result: {
-        message: successMsg,
-        payload,
-      },
+      result: { message, payload, ...props },
       error: null,
     };
-    if (!payload) {
-      res.success = false;
-      res.result = null;
-      res.error = {
-        code: 1,
-        message: errorMsg,
-      };
-    }
-    return res;
+    const error: ResponseResult = {
+      success: false,
+      result: null,
+      error: { message, statusCode, ...props },
+    };
+    return { success, error };
   }
 
   getQueryPaginate(query: Record<string, any>) {
@@ -112,6 +109,10 @@ class HelperService {
     }
     if (isArray(data)) data = { items: data, total: data.length };
     if (data.toJSON) data = data.toJSON();
+    if (typeof data === 'object') {
+      const { password, __v, ...payload } = data;
+      data = payload;
+    }
     return data;
   }
 
@@ -122,4 +123,4 @@ class HelperService {
     return dayjs.duration(+dateString, dateExist).asSeconds();
   }
 }
-export { ConditionsQuery, ResJsonReturn, ResJsonParam, HelperService };
+export { ConditionsQuery, HelperService };

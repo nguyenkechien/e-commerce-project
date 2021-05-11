@@ -1,12 +1,14 @@
 export interface ResponseResult {
-  success: boolean;
-  result?: {
+  success?: boolean;
+  result: {
     message?: string;
     payload: any;
+    [x: string]: any;
   } | null;
   error?: {
     code?: number;
     message?: string;
+    [x: string]: any;
   } | null;
 }
 
@@ -16,4 +18,5 @@ export interface CoreResponseResult {
   data?: any;
   message?: string;
   setToken?: boolean;
+  [x: string]: any;
 }

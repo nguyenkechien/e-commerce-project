@@ -1,4 +1,4 @@
-import { Role } from '@src/schema/role.schema';
+import { Role } from '@schema/role.schema';
 import { LeanDocument } from 'mongoose';
 
 export class UserEntity {

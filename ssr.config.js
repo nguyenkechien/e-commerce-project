@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   id: 'default',
   distDir: 'dist/.ssr',
-  viewsDir: './src/client',
+  viewsDir: './src/views',
   staticViews: [],
   webpack: (
     config /* webpack.Configuration */,

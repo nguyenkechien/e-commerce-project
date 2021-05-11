@@ -3,17 +3,19 @@ export interface ResJsonReturn {
   result: {
     message?: string;
     payload: any;
+    [x: string]: any;
   } | null;
   error?: {
     code?: number;
     message?: string;
+    [x: string]: any;
   } | null;
 }
 
 export interface ResJsonParam {
-  successMsg?: string;
-  payload?: any;
-  errorMsg?: string;
+  message: string;
+  payload: any;
+  [x: string]: any;
 }
 
 export interface ConditionsQuery {

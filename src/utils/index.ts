@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './middleware/logger';
-import { configuration } from '@helpers/configuration';
+import { configuration } from '@utils/configuration';
 import { HelperService } from './services/helper.services';
 import { APP_FILTER } from '@nestjs/core';
 import { ViewExceptionFilter } from './filters/exception.filter';

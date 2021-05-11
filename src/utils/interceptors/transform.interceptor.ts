@@ -8,9 +8,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ResponseResult, CoreResponseResult } from './transform.interface';
 import { Response } from 'express';
-import { PaginateResult } from 'mongoose';
 import { MessageEnum } from '../constants/message.enum';
-import { HelperService } from '@core/services/helper.services';
+import { HelperService } from '@utils/services/helper.services';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -27,32 +26,27 @@ export class TransformInterceptor implements NestInterceptor<ResponseResult> {
     return next.handle().pipe(
       map((result: CoreResponseResult) => {
         result.data = this.helperService.formatResult(result.data);
-        let payload: any = result.data;
-        if (typeof result.data === 'object') {
-          const { password, __v, ...data } = result.data;
-          payload = data;
-        }
-        const tokenKey = this.configService.get('cookie.tokenKey');
-        const expiresIn: string =
-          this.configService.get('jwt.expiresIn') || '60s';
-        const expiresInSeconds = this.helperService.getSeconds(expiresIn);
+        const payload: any = result.data;
+
+        let expiresIn;
         if (result.setToken) {
+          const tokenKey = this.configService.get('cookie.tokenKey');
+          const jwtExpiresIn = this.configService.get('jwt.expiresIn');
+          expiresIn = this.helperService.getSeconds(jwtExpiresIn);
           response.cookie(tokenKey, payload, {
             secure: !this.configService.get('node.debug'),
             httpOnly: true,
-            expires: new Date(Date.now() + expiresInSeconds * 1000),
+            expires: new Date(Date.now() + expiresIn * 1000),
           });
           response.setHeader(tokenKey, payload);
         }
-        return {
-          success: true,
-          result: {
-            message: result.message || MessageEnum.SUCCESS,
-            payload,
-            expiresIn: expiresInSeconds,
-          },
-          error: null,
-        };
+        const message = result.message || MessageEnum.SUCCESS;
+        const res = this.helperService.jsonReturn({
+          message,
+          data: payload,
+          expiresIn,
+        });
+        return res.success;
       }),
     );
   }
