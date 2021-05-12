@@ -4,7 +4,5 @@ import { Controller, Get, Render } from '@nestjs/common';
 export class LoginController {
   @Get()
   @Render('pages/login.tsx')
-  async root() {
-    return {};
-  }
+  async root() {}
 }
