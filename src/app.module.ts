@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { RenderModule } from 'nest-next';
 import Next from 'next';
 import { resolve } from 'path';
+import { AppController } from './app.controller';
 
 @Module({
-  controllers: [],
   imports: [
     RenderModule.forRootAsync(
       Next({
@@ -13,5 +13,6 @@ import { resolve } from 'path';
       }),
     ),
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
