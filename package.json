@@ -5,20 +5,12 @@
   "author": "KyS",
   "private": true,
   "license": "UNLICENSED",
+  "main": ".next/server.js",
+  "types": "src/server.ts",
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/src/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.{ts,tsx,jsx}\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "clean": "rimraf ./.next",
+    "build": "tsc -b",
+    "dev": "nodemon"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -28,6 +20,7 @@
     "@nestjs/mongoose": "^7.2.4",
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/platform-fastify": "^7.6.15",
     "@reduxjs/toolkit": "^1.5.1",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
@@ -51,7 +44,6 @@
     "rxjs": "^6.5.4"
   },
   "devDependencies": {
-    "@nestjs/cli": "^7.0.0",
     "@nestjs/mapped-types": "^0.4.1",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
