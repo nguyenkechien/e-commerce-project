@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  Document,
-  Head,
-  Main,
-} from '@react-ssr/nestjs-express';
+import Document, { Head, Main, NextScript } from 'next/document'
 
 export default class extends Document {
   render() {
@@ -14,6 +10,7 @@ export default class extends Document {
         </Head>
         <body>
           <Main />
+          <NextScript />
         </body>
       </html>
     );

@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Head } from '@react-ssr/nestjs-express';
-import { Pagination } from '../../components/atoms/pagination';
-import { storeSelector, storeDispatch } from '../../store/hooks';
-import { increment, selectCount, incrementAsync, selectCountStatus } from '../../store/counter/counterSlice';
-import { Button } from '../../components/atoms/button/index';
-import { getListPages } from '../../utils/helper';
-import { rolesService } from '../../services/roles.service';
-
+import React from 'react';
+// import { storeSelector, storeDispatch } from '../../store/hooks';
+// import { selectCount, incrementAsync, selectCountStatus } from '../../store/counter/counterSlice';
+// import { Button } from '../../components/atoms/button/index';
 interface IndexProps {
   message: string;
   payload: {
@@ -25,17 +20,17 @@ interface IndexProps {
 }
 
 const Index = ({ payload, message }: IndexProps) => {
-  const counter = storeSelector(selectCount);
-  const statusCounter = storeSelector(selectCountStatus);
+  // const counter = storeSelector(selectCount);
+  // const statusCounter = storeSelector(selectCountStatus);
 
-  const dispatch = storeDispatch();
-  const onChange = (pageNum: number) => {
-    console.log(`pageNum`, pageNum);
-  }
+  // const dispatch = storeDispatch();
+  // const onChange = (pageNum: number) => {
+  //   console.log(`pageNum`, pageNum);
+  // }
 
-  const btnClick = () => {
-    dispatch(incrementAsync(1))
-  }
+  // const btnClick = () => {
+  //   dispatch(incrementAsync(1))
+  // }
 
   // useEffect(() => {
   //   const fetchRoles = async () => {
@@ -47,11 +42,8 @@ const Index = ({ payload, message }: IndexProps) => {
 
   return (
     <React.Fragment>
-      <Head>
-        <title>E-commerce project</title>
-      </Head>
       <p>Home page</p>
-      <p>{message}</p>
+      {/* <p>{message}</p>
       <a href="/about">Go to the about page</a>
       <p>{counter}</p>
       <Button
@@ -61,7 +53,7 @@ const Index = ({ payload, message }: IndexProps) => {
         loading={statusCounter === 'loading'}
       >
         increment
-      </Button>
+      </Button> */}
       {/* {payload.items.map((item) => {
         return (
           <div key={item._id}>

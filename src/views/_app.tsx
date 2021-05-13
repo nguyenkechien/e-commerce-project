@@ -1,6 +1,6 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { store } from './store/store';
+// import { Provider } from 'react-redux';
+// import { store } from './store/store';
 import './assets/scss/core.scss';
 
 type Props = {
@@ -17,9 +17,9 @@ const App = (props: Props): JSX.Element => {
   const PageComponent = children;
 
   return (<>
-    <Provider store={store}>
-      <PageComponent {...rest} />
-    </Provider>
+    {/* <Provider store={store}> */}
+    <PageComponent {...rest} />
+    {/* </Provider> */}
   </>);
 };
 

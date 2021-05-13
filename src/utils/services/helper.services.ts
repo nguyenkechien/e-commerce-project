@@ -96,7 +96,7 @@ class HelperService {
   }
 
   formatResult(data: Record<any, any>) {
-    if (data?.docs) {
+    if (data && data.docs) {
       const paginator = data as PaginateResult<any>;
       data = {
         items: paginator.docs,

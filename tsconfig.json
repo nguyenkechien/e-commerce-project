@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "target": "ES2017",
+    "module": "CommonJS",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2017",
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": ".next",
     "baseUrl": "./",
     "incremental": true,
     "jsx": "preserve",
@@ -25,5 +25,5 @@
       "@api/*": ["./src/api/*"]
     }
   },
-  "exclude": ["node_modules", "ssr.config.js", "dist", ".ssr"]
+  "exclude": ["node_modules", "dist", ".next", "test"]
 }

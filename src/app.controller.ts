@@ -1,7 +1,4 @@
-import { Controller, UseFilters } from '@nestjs/common';
-import { ViewExceptionFilter } from '@utils/filters/exception.filter';
+import { Controller } from '@nestjs/common';
 
 @Controller()
-export class AppController {
-  constructor() {}
-}
+export class AppController {}

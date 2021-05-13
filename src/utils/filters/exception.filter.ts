@@ -20,7 +20,7 @@ export class ViewExceptionFilter implements ExceptionFilter {
     ) {
       response.redirect('/login');
     } else {
-      // response.redirect('/error');
+      response.redirect('/error', 500);
     }
   }
 }

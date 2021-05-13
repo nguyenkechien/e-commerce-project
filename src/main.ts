@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
-import register from '@react-ssr/nestjs-express/register';
 import { AppModule } from './app.module';
 import cookieParser from 'cookie-parser';
 
@@ -15,8 +14,8 @@ async function bootstrap() {
 
   /** register view */
   app.useStaticAssets(join(__dirname, '..', 'public'));
-  app.setBaseViewsDir(join(__dirname, '..', 'views'));
-  await register(app);
+  // app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  // await register(app);
   app.setViewEngine('hbs');
 
   /** start app */

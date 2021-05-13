@@ -1,7 +1,7 @@
 import React from 'react';
 import { ButtonProps } from './interface';
 import classNames from 'classnames';
-import './button.scss';
+// import './button.scss';
 import { IconLoading } from '../icon/loading';
 
 

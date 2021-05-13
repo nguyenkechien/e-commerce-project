@@ -20,7 +20,7 @@ export class HomeController {
     private readonly helperService: HelperService,
   ) {}
   @Get()
-  @Render('pages/index.tsx')
+  @Render('index')
   async root(@Query() query: Record<string, any>) {
     const payload = await this.rolesService.findAll(query);
     const result = this.helperService.formatResult(payload);
