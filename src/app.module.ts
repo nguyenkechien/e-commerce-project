@@ -11,6 +11,9 @@ import { AppController } from './app.controller';
         dev: process.env.NODE_ENV !== 'production',
         dir: resolve(__dirname, './', 'views'),
       }),
+      {
+        viewsDir: '',
+      },
     ),
   ],
   controllers: [AppController],

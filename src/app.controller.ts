@@ -1,12 +1,10 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, Res } from '@nestjs/common';
+import { RenderableResponse } from 'nest-next';
 
 @Controller()
 export class AppController {
-  constructor() {}
-
-  @Get('/')
-  @Render('index')
-  root() {
-    return {};
+  @Get()
+  index(@Res() res: RenderableResponse) {
+    res.render('index', {});
   }
 }

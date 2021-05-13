@@ -9,8 +9,12 @@
   "types": "src/server.ts",
   "scripts": {
     "clean": "rimraf ./.next",
-    "build": "tsc -b",
-    "dev": "nodemon"
+    "dev": "nodemon src/server.ts",
+    "build:clean": "rimraf .next",
+    "build:ui": "npx next build",
+    "build:server": "npx tsc --project tsconfig.server.json",
+    "build": "npm run build:clean && npm run build:ui && npm run build:server",
+    "start": "cross-env NODE_ENV=production node .next/production-server/src/server.js"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -26,6 +30,7 @@
     "bcrypt": "^5.0.1",
     "classnames": "^2.3.1",
     "cookie-parser": "^1.4.5",
+    "cross-env": "^7.0.3",
     "dayjs": "^1.10.4",
     "env-var": "^7.0.0",
     "hbs": "^4.1.1",

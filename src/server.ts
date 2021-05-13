@@ -6,13 +6,13 @@ import {
 import 'reflect-metadata';
 import { AppModule } from './app.module';
 
-async function bootstrap() {
+const bootstrap = async () => {
   const server = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
   );
-    console.log(`object`)
   await server.listen(3000);
-}
+  console.log(`Application is running on: ${await server.getUrl()}`);
+};
 
 bootstrap();
