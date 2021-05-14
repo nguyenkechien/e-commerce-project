@@ -1,11 +1,21 @@
 import { Module } from '@nestjs/common';
+import { RenderModule } from 'nest-next';
+import Next from 'next';
+import { resolve } from 'path';
 import { AppController } from './app.controller';
-import { CoresModule } from '@utils/index';
-import { SchemaModule } from '@schema/schema.module';
-import { ApiModule } from '@api/api.module';
-import { ViewsModule } from './modules/index.module';
+
 @Module({
-  imports: [CoresModule, SchemaModule, ApiModule, ViewsModule],
+  imports: [
+    RenderModule.forRootAsync(
+      Next({
+        dev: process.env.NODE_ENV !== 'production',
+        dir: resolve(__dirname, './', 'views'),
+      }),
+      {
+        viewsDir: '',
+      },
+    ),
+  ],
   controllers: [AppController],
 })
 export class AppModule {}

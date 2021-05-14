@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "target": "ES2017",
+    "module": "CommonJS",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2017",
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "baseUrl": "./",
     "incremental": true,
     "jsx": "preserve",
@@ -17,6 +17,8 @@
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "typeRoots": ["node_modules/@types", "./typings"],
+    "forceConsistentCasingInFileNames": true,
     "paths": {
       "@src/*": ["./src/*"],
       "@utils/*": ["./src/utils/*"],
@@ -25,5 +27,6 @@
       "@api/*": ["./src/api/*"]
     }
   },
-  "exclude": ["node_modules", "ssr.config.js", "dist", ".ssr"]
+  "include": ["./src/**/*", "types.ts"],
+  "exclude": ["node_modules", "dist", ".next", "test"]
 }
