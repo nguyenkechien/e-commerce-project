@@ -8,9 +8,9 @@
   "main": ".next/server.js",
   "types": "src/server.ts",
   "scripts": {
-    "clean": "rimraf ./.next",
+    "clean": "rimraf ./dist",
     "dev": "nodemon src/server.ts",
-    "build:clean": "rimraf .next",
+    "build:clean": "rimraf ./dist",
     "build:ui": "npx next build ./src/views",
     "build:server": "npx tsc --project tsconfig.server.json",
     "build": "npm run build:clean && npm run build:ui && npm run build:server",
