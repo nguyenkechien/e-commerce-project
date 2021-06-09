@@ -6,9 +6,9 @@ import {
   UseGuards,
   UseFilters,
 } from '@nestjs/common';
-import { RolesService } from '@api/roles/roles.service';
+import { RolesService } from '@src/api/roles/roles.service';
 import { HelperService } from '@utils/services/helper.services';
-import { JwtAuthGuard } from '@api/auth/guard/jwt-auth.guard';
+import { JwtAuthGuard } from '@src/api/auth/guard/jwt-auth.guard';
 import { ViewExceptionFilter } from '@utils/filters/exception.filter';
 
 @Controller('')
@@ -20,7 +20,7 @@ export class HomeController {
     private readonly helperService: HelperService,
   ) {}
   @Get()
-  @Render('pages/index.tsx')
+  @Render('index')
   async root(@Query() query: Record<string, any>) {
     const payload = await this.rolesService.findAll(query);
     const result = this.helperService.formatResult(payload);

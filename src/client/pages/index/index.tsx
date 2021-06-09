@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Head } from '@react-ssr/nestjs-express';
 import { Pagination } from '../../components/atoms/pagination';
 import { storeSelector, storeDispatch } from '../../store/hooks';
 import { increment, selectCount, incrementAsync, selectCountStatus } from '../../store/counter/counterSlice';
@@ -47,9 +46,6 @@ const Index = ({ payload, message }: IndexProps) => {
 
   return (
     <React.Fragment>
-      <Head>
-        <title>E-commerce project</title>
-      </Head>
       <p>Home page</p>
       <p>{message}</p>
       <a href="/about">Go to the about page</a>

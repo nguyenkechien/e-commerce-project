@@ -19,11 +19,12 @@
     "esModuleInterop": true,
     "paths": {
       "@src/*": ["./src/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@schema/*": ["src/schema/*"],
+      "@utils/*": ["src/utils/*"],
+      "@schema/*": ["./src/schema/*"],
       "@modules/*": ["src/modules/*"],
-      "@api/*": ["./src/api/*"]
+      "@api/*": ["src/api/*"]
     }
   },
-  "exclude": ["node_modules", "ssr.config.js", "dist", ".ssr"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

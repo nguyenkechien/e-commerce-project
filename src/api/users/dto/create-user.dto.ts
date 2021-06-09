@@ -1,4 +1,4 @@
-import { Role } from '@src/schema/role.schema';
+import { Role } from '@schema/role.schema';
 import { SchemaTypes } from 'mongoose';
 import { Prop } from '@nestjs/mongoose';
 export class CreateUserDto {
